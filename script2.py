@@ -85,6 +85,7 @@ class Grid:
         covered = solve_rec(submatrix, k // 2, k // 2, 0, n)
         return n - covered
     
+    
     def solve_breadth(self, max_nodes=5000000):
         queue = deque([(self, [(self.row, self.col)])])
         visited = {hash(self)}
@@ -211,15 +212,10 @@ benchmark5 = [[1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1, 1, 1, 0, 
 benchmark7 = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0], [1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0], [1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0]]
 benchmark8 = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-def find_first_blue(board):
-    for i in range(len(board)):
-        for j in range(len(board[0])):
-            if board[i][j] == 1:
-                return i, j
-    return 3, 3  # Par défaut
+
 
 if __name__ == "__main__":
-   
+
     benchmarks = [benchmark1, benchmark2, benchmark3, benchmark4, benchmark5, benchmark7, benchmark8]
     methods = [
         ("Depth", lambda g: g.solve_depth(max_nodes=500000)),
@@ -232,9 +228,8 @@ if __name__ == "__main__":
     for i, bench in enumerate(benchmarks, 1):
         print(f"\nBenchmark {i}:")
         gr = Grid(bench)
-        row, col = find_first_blue(bench)
-        gr.set_row_col(row, col)
-        print(f"Position initiale : ({row}, {col})")
+        gr.set_row_col(3, 3)  # Toujours commencer à (3,3)
+        print(f"Position initiale : (3, 3)")
         for name, method in methods:
             print(f"Début de {name}...")
             start = time.time()
